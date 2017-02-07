@@ -80,7 +80,7 @@ square_main(int argc, char *argv[])
 
     /* read back values to validate */ // чтение данных для проверки
     int arm_sub_fd = orb_subscribe(ORB_ID(actuator_armed)); // создание переменной равной результату выполнения функции подписки на топик
-    orb_copy(ORB_ID(actuator_armed), arm_sub_fd, &arm); // копирование ??
+    orb_copy(ORB_ID(actuator_armed), arm_sub_fd, &arm); // копирование
 
     if (arm.ready_to_arm && arm.armed) {
         warnx("Actuator armed");

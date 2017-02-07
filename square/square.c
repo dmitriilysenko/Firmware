@@ -64,35 +64,12 @@ __EXPORT int	square_main(int argc, char *argv[]);
 int
 square_main(int argc, char *argv[])
 {
-        //fpwm
-    const char *dev = PWM_OUTPUT0_DEVICE_PATH;
-    unsigned alt_rate = 0;
-    uint32_t alt_channel_groups = 0;
-    bool alt_channels_set = false;
-    bool print_verbose = false;
-    bool error_on_warn = false;
-    int ch;
-    int ret;
-    char *ep;
-    uint32_t set_mask = 0;
-    unsigned group;
-    unsigned long channels;
-    unsigned single_ch = 0;
-    int pwm_value = 0;
-
-       // fhwt
-
-    warnx("DO NOT FORGET TO STOP THE DEFAULT CONTROL APPS!");
-    warnx("(run <commander stop>,)");
-    warnx("(    <mc_att_control stop> and)");
-    warnx("(    <fw_att_control stop> to do so)");
-    warnx("usage: http://px4.io/dev/examples/write_output");
-
-    struct actuator_controls_s actuators; // объявление структуры "actuators" типа actuator_controls_s
+        
+    struct actuator_controls_s actuators; 
     memset(&actuators, 0, sizeof(actuators));
     orb_advert_t actuator_pub_ptr = orb_advertise(ORB_ID(actuator_controls_0), &actuators); // объявление издателя actuator_pub_ptr, содержащего функцию (orb_advertise) объявления топика "actuator_controls_0" и размещения начальной публикации (&actuators), ORB_ID - указатель на топик.
 
-    struct actuator_armed_s arm; // объявление структуры "arm" типа actuator_armed_s
+    struct actuator_armed_s arm; 
     memset(&arm, 0 , sizeof(arm));
 
     arm.timestamp = hrt_absolute_time(); //ЭТО
@@ -114,8 +91,8 @@ square_main(int argc, char *argv[])
 
 
    for (int i = 0; i != 4; i++) {
-       //fhwt
-    while ((ch = getopt(argc - 1, &argv[1], "f:t:")) != EOF) { //why int ch & argc-1?
+     
+    while ((int ch = getopt(argc - 1, &argv[1], "f:t:")) != EOF) { //why int ch & argc-1?
         switch (ch) {
 
         //fpwm
@@ -135,7 +112,6 @@ square_main(int argc, char *argv[])
         }
         actuators.timestamp = hrt_absolute_time(); //ЭТО
         orb_publish(ORB_ID(actuator_controls_0), actuator_pub_ptr, &actuators); // публикуем в топик actuator_controls_0 то, что у нас в структуре actuators(видимо, значение из actuators.control[i])
-        usleep(10000);
     }
    }
 

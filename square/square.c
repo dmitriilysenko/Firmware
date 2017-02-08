@@ -104,8 +104,8 @@ square_main(int argc, char *argv[])
             break;
 
         case 't':
-            actuators.control[0] = 0.3f;        //поворачивать
-            actuators.control[1] = 1.0f;
+            actuators.control[0] = 0.3f;        
+            actuators.control[1] = 1.0f;        //поворачивать
             sleep(optarg);
             break;
 

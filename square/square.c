@@ -98,21 +98,26 @@ square_main(int argc, char *argv[])
         //fpwm
 
         case 'f':
-            actuators.control[0] = 1.5f;
-            actuators.control[1] = 1.0f;
+            actuators.control[0] = 0.5f;        //ехать прямо
+            actuators.control[1] = 0.0f;        //выход для поворота колёс
             sleep(optarg);
             break;
 
         case 't':
-            actuators.control[0] = 1.3f;
-            actuators.control[1] = 1.5f;
+            actuators.control[0] = 0.3f;        //поворачивать
+            actuators.control[1] = 1.0f;
             sleep(optarg);
             break;
 
         }
-        actuators.timestamp = hrt_absolute_time(); //ЭТО
+        actuators.timestamp = hrt_absolute_time(); //??
         orb_publish(ORB_ID(actuator_controls_0), actuator_pub_ptr, &actuators); // публикуем в топик actuator_controls_0 то, что у нас в структуре actuators(видимо, значение из actuators.control[i])
     }
+            actuators.control[0] = 0.0f;       
+            actuators.control[1] = 0.0f;
+           
+           actuators.timestamp = hrt_absolute_time();
+           orb_publish(ORB_ID(actuator_controls_0), actuator_pub_ptr, &actuators);
    }
 
     return OK;
